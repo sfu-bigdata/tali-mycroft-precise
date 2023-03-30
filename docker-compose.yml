@@ -1,0 +1,23 @@
+version: "3.9"
+name: tali-mycroft-precise
+services:
+  tali-mycroft-precise:
+    build: 
+      dockerfile: Dockerfile
+      # target: dev
+    volumes:
+      # - "./audio:/app/wakeword-data-collector" # for prod
+      # - ".:/app/tali-mycroft-precise" # for dev
+      # - /mnt/wslg/:/mnt/wslg/ # only Windows
+      # - ~/.config/pulse:/home/pulseaudio/.config/pulse # only MacOS
+      - ~/.config/pulse:/root/.config/pulse
+    # devices: # Ubuntu
+    #   - /dev/snd # Ubuntu
+    # env_file:
+    #   - mac.env # wsl.env | mac.env | ubuntu.env
+    networks:
+      - secretsauce
+networks:
+  secretsauce:
+    external: true
+    #Create a network with $ docker network create -d bridge secretsauce
