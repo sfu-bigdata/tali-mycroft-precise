@@ -6,7 +6,7 @@ ARG REPO_FOLDER=tali-mycroft-precise
 USER root
 # Install Packages via apt and pip
 RUN apt-get update && \
-    apt-get install -y --force-yes git alsa-utils pulseaudio portaudio19-dev \
+    apt-get install -y --force-yes git dos2unix alsa-utils pulseaudio portaudio19-dev \
             libopenblas-dev python3-scipy libhdf5-dev python3-h5py portaudio19-dev ffmpeg
             
 RUN micromamba install --yes --name base --channel conda-forge \
@@ -26,16 +26,18 @@ RUN touch version-`date +%Y-%m-%d:%H:%M.%p`.dev
 COPY . ${REPO_FOLDER}/ 
 # RUN git clone https://github.com/sfu-bigdata/tali-mycroft-precise.git
 
+# recursively removes windows related stuff e.g. windows \r line endings
+RUN find . -type f -exec dos2unix {} \;
+
+WORKDIR /app/${REPO_FOLDER}
+
 # remove stuff that would break the setup from setup.sh (the default installation script from Precise uses sudo, while the container is already run in root, also we installed Cython above)
-RUN sed -i -e 's/sudo //g' ${REPO_FOLDER}/setup.sh
-RUN sed -i -e 's/cython //g' ${REPO_FOLDER}/setup.sh
-# Remove extra '\r' in case of Windows file endings
-RUN sed -i $'s/\r$//' ${REPO_FOLDER}/setup.sh 
+RUN sed -i -e 's/sudo //g' setup.sh
+RUN sed -i -e 's/cython //g' setup.sh
 
 # run modified setup.sh and install other requirements
-WORKDIR /app
-RUN chmod u+x ${REPO_FOLDER}/setup.sh
-RUN ${REPO_FOLDER}/setup.sh
+RUN chmod u+x setup.sh
+RUN ./setup.sh
 
 WORKDIR /app/${REPO_FOLDER}
 # RUN pip install -e runner/
