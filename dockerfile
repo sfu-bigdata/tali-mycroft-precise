@@ -40,6 +40,7 @@ RUN chmod u+x setup.sh
 RUN ./setup.sh
 
 WORKDIR /app/${REPO_FOLDER}
+RUN .venv/bin/pip install 'h5py==2.10.0' 'protobuf==3.20.*' 'numpy==1.16' --force-reinstall
 # RUN pip install -e runner/
 # RUN pip install -e .
 # RUN pip install pocketsphinx 
