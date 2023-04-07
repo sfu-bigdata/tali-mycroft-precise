@@ -1,6 +1,6 @@
-# FROM python:3.7.12
+FROM python:3.7.12
 # debian is not compatible with mycroft and TF, ubuntu is compatible
-FROM mambaorg/micromamba:1.4.1-jammy
+# FROM mambaorg/micromamba:1.4.1-jammy
 
 ARG REPO_FOLDER=tali-mycroft-precise
 USER root
@@ -9,10 +9,10 @@ RUN apt-get update && \
     apt-get install -y --force-yes git dos2unix alsa-utils pulseaudio portaudio19-dev \
             libopenblas-dev python3-scipy libhdf5-dev python3-h5py portaudio19-dev ffmpeg
             
-RUN micromamba install --yes --name base --channel conda-forge \
-      python=3.7 && \
-    micromamba clean --all --yes
-# (otherwise python will not be found)
+# RUN micromamba install --yes --name base --channel conda-forge \
+#       python=3.7 && \
+#     micromamba clean --all --yes
+# # (otherwise python will not be found)
 ARG MAMBA_DOCKERFILE_ACTIVATE=1  
 
 RUN pip install --upgrade pip
