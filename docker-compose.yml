@@ -3,7 +3,7 @@ name: tali-mycroft-precise
 services:
   tali-mycroft-precise:
     build: 
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
       # target: dev
     volumes:
       # - "./audio:/app/wakeword-data-collector" # for prod
@@ -14,7 +14,7 @@ services:
     # devices: # Ubuntu
     #   - /dev/snd # Ubuntu
     # env_file:
-    #   - mac.env # wsl.env | mac.env | ubuntu.env
+    #    - *.env # wsl.env | mac.env | ubuntu.env
     networks:
       - secretsauce
 networks:
