@@ -8,13 +8,13 @@ services:
     volumes:
       # - "./audio:/app/wakeword-data-collector" # for prod
       # - ".:/app/tali-mycroft-precise" # for dev
-      # - /mnt/wslg/:/mnt/wslg/ # only Windows
+      - /mnt/wslg/:/mnt/wslg/ # only Windows
       # - ~/.config/pulse:/home/pulseaudio/.config/pulse # only MacOS
       - ~/.config/pulse:/root/.config/pulse
     # devices: # Ubuntu
     #   - /dev/snd # Ubuntu
-    # env_file:
-    #    - *.env # wsl.env | mac.env | ubuntu.env
+    env_file:
+       - wsl.env # wsl.env | mac.env | ubuntu.env
     networks:
       - secretsauce
 networks:
