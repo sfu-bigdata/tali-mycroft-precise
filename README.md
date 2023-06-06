@@ -177,6 +177,7 @@ To install WSL 2 follow these commands:
 2. Download this [WSL 2 kernel update][kernel-update] (required).
 
 [kernel-update]:https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+
 3. Double-click the wsl_update_x64.msi file and apply the update.
 4. Open Start. Search for PowerShell, right-click the top result, and select the Run as administrator option.
 5. Type the following command to set Windows Subsystem for Linux 2 your default architecture for new distros that you install, and press Enter:
