@@ -153,6 +153,7 @@ Everything else is just a matter of getting data into the right form.
 
 ## Running on Windows (Docker Installation)
 
+### WSL2 Setup
 On Windows, PulseAusio support is provided by the [WSL2 and WSLg backends][wsl2]. With WSL support, the audio configuration is similar to ubuntu.
 
 [wsl2]:https://github.com/microsoft/wslg
@@ -199,4 +200,42 @@ In the command, change “Ubuntu” for the distro’s name you want to convert.
 You would want to make sure that you are running the updated version so use command `wsl --update`. For more info around WSL 2 setup you can refer [here][pure-info-tech]
 
 [pure-info-tech]:https://pureinfotech.com/install-windows-subsystem-linux-2-windows-10/
+
+### Pulseaudio Setup
+
+1. After having WSL2 support and setting wsl.env go ahead and install pulseaudio using (use sudo if necessary):
+
+```bash
+apt install pulseaudio
+apt-get update
+```
+2. Start pulseaduio using the following command:
+
+```bash
+sudo pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon --system -v
+```
+### Running Docker
+
+Use below commands to run the container:
+
+```bash
+wsl docker compose build
+wsl docker compose run tali-mycroft-precise
+source .venv/bin/activate
+```
+After the source is activated, you can start recording your voice and training your own wake-word. For further instructions follow the commands from this [wiki][wiki]. 
+
+[wiki]:https://github.com/MycroftAI/mycroft-precise/wiki/Training-your-own-wake-word
+
+### Test the audio
+- Play a known sound with `aplay /usr/share/sounds/alsa/Front_Center.wav`.
+- Record a sound with `arecord -d 5 -f U8 sample.mp3` and playback with aplay command.
+
+If the above tests are able to playback and record, then docker is able to use the speaker and microphone from the container app. Otherwise, further troubleshooting may be needed([refer this][refer]).
+
+[refer]:https://askubuntu.com/questions/57810/how-to-fix-no-soundcards-found/815516#815516
+
+To test speaker to check if the audio can be played from inside container try running `docker run -it -e PULSE_SERVER=host.docker.internal -v ~/.config/pulse:/home/pulseaudio/.config/pulse --entrypoint speaker-test --rm jess/pulseaudio -c 2 -l 1 -t wav`
+
+In case of a situation where you would want to kill pulseaudio and start again you can do so by using commands like `pulseaudio --kill` or `brew services stop pulseaudio`
 
