@@ -173,8 +173,10 @@ EOF
 To install WSL 2 follow these commands:
 
 1. To install wsl: `wsl --install`
-2. Download this [WSL 2 kernel update][kernelupdate] (required).
-[kernelupdate]:https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+2. Download this [WSL 2 kernel update][kernel-update] (required).
+
+[kernel-update]:https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+
 3. Double-click the wsl_update_x64.msi file and apply the update.
 4. Open Start. Search for PowerShell, right-click the top result, and select the Run as administrator option.
 5. Type the following command to set Windows Subsystem for Linux 2 your default architecture for new distros that you install, and press Enter:
@@ -194,6 +196,7 @@ In the command, change “Ubuntu” for the distro’s name you want to convert.
 - To install a specific Distro like 'Ubuntu': `wsl.exe --install <Distro>`
 - To set 'Ubuntu' as the default distro: `wsl --setdefault Ubuntu`
 
-You would want to make sure that you are running the updated version so use command `wsl --update`. For more info around WSL 2 setup you can refer [here][pureinfotech]
-[pureinfotech]:https://pureinfotech.com/install-windows-subsystem-linux-2-windows-10/
+You would want to make sure that you are running the updated version so use command `wsl --update`. For more info around WSL 2 setup you can refer [here][pure-info-tech]
+
+[pure-info-tech]:https://pureinfotech.com/install-windows-subsystem-linux-2-windows-10/
 
