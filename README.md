@@ -153,7 +153,9 @@ Everything else is just a matter of getting data into the right form.
 
 ## Running on Windows (Docker Installation)
 
-On Windows, PulseAusio support is provided by the [WSL2 and WSLg backends][https://github.com/microsoft/wslg]. With WSL support, the audio configuration is similar to ubuntu.
+On Windows, PulseAusio support is provided by the [WSL2 and WSLg backends][wsl2]. With WSL support, the audio configuration is similar to ubuntu.
+
+[wsl2]:https://github.com/microsoft/wslg
 
 - Ensure latest version of WSL is installed `wsl --update` [requires admin privileges]
 - Set default version as WSL2 `wsl --set-default-version 2` [requires admin privileges]
