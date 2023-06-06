@@ -150,3 +150,46 @@ At it's core, Precise uses just a single recurrent network, specifically a GRU.
 Everything else is just a matter of getting data into the right form.
 
 ![Architecture Diagram](https://images2.imgbox.com/f7/44/6N4xFU7D_o.png)
+
+## Running on Windows (Docker Installation)
+
+On Windows, PulseAusio support is provided by the [WSL2 and WSLg backends][https://github.com/microsoft/wslg]. With WSL support, the audio configuration is similar to ubuntu.
+
+- Ensure latest version of WSL is installed `wsl --update` [requires admin privileges]
+- Set default version as WSL2 `wsl --set-default-version 2` [requires admin privileges]
+- Create an environemnt file wsl.env
+Copy/paste the following commands into a shell terminal to create a file wsl.env in the current directory.
+
+The file encoding must be readbale/supported by the underlying *nix shell. The PowerShell Write-Output command may produce a file with unexpected encodings/line terminations. The safest method is to create this file via text editor (e.g. notepad) and paste the two lines with export.
+
+```bash
+cat > wsl.env << EOF
+export PULSE_SERVER=unix:/mnt/wslg/PulseServer
+export XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
+EOF
+```
+To install WSL 2 follow these commands:
+
+1. To install wsl: `wsl --install`
+2. Download this [WSL 2 kernel update][https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi] (required).
+3. Double-click the wsl_update_x64.msi file and apply the update.
+4. Open Start. Search for PowerShell, right-click the top result, and select the Run as administrator option.
+5. Type the following command to set Windows Subsystem for Linux 2 your default architecture for new distros that you install, and press Enter:
+
+```bash
+wsl --set-default-version 2
+```
+
+6. (Optional) Type the following command to convert the distro from WSL to WSL 2 and press Enter:
+
+```bash
+wsl --set-version Ubuntu 2
+```
+In the command, change “Ubuntu” for the distro’s name you want to convert. If you do not know the distro’s name, use the `wsl -l -v command`. Steps to install Ubuntu distro and make it default after installing WSL 2:
+
+- To list all the available distros: `wsl.exe --list --online`
+- To install a specific Distro like 'Ubuntu': `wsl.exe --install <Distro>`
+- To set 'Ubuntu' as the default distro: `wsl --setdefault Ubuntu`
+
+You would want to make sure that you are running the updated version so use command `wsl --update`. For more info around WSL 2 setup you can refer [here][https://pureinfotech.com/install-windows-subsystem-linux-2-windows-10/]
+
